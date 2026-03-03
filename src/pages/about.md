@@ -3,35 +3,42 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+## Who I am
 
-![Astro Paper](public/astropaper-og.jpg)
+I am Kumar Ashish, a Software Engineer, currently in Bangalore, India.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+## What I do
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+I am working on Observability at [Atlassian](https://www.atlassian.com/). We are currently exploring Grafana/Mimir for high cardinality metrics
+ingestion. I am also looking for opportunities to improve developer productivity in my org. Day-to-day, I am on the
+lookout for how I can leverage AI to generate better results.
 
-## Features
+## How I got here
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+I graduated from [IEM, Kolkata](https://iem.edu.in/) in 2019 and was part of the first batch of [Scaler Academy](https://www.scaler.com/) (April, 2019). My first role
+was at [Mindtickle](https://www.mindtickle.com/), Pune where I mostly helped refactor and rebuild some of the existing stuff they had. Then I moved to
+[CRED](https://cred.club/) in 2021, and did some of my best work building services for credit card management. I stayed at CRED for 4.5 years
+and now I am at [Atlassian](https://www.atlassian.com/).
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+## What I care about
 
-and so much more.
+I love to see well-written code, it's like music to my ears. But more than how code is written, it's the impact of it
+which matters a lot to me. I like working with a plan towards the future, where my previous work lays foundation
+for my next. I love discussing problems around scale, and coming up with the most cost-effective solution.
 
-## Show your support
+## This blog
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+With AI, I feel like I am doing so much more, so I want to begin contributing actively to open source. It may be to some
+existing projects, or some projects of my own. I started this blog to share my musings around what I found interesting
+while working in general.
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+## Outside of work
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+I like watching football and playing video games occasionally. Sometimes I pick up a book, my current favorite read is
+[The Book Thief](https://www.goodreads.com/book/show/19063.The_Book_Thief). I absolutely love to travel, and my wife loves it too.  
 
-Kyay zuu! 🙏🏼
+## Find me online
+
+- [GitHub](https://github.com/Krashcan)
+- [LinkedIn](https://www.linkedin.com/in/krashcan/)
+- [X](https://x.com/kumar_ashish_sh)

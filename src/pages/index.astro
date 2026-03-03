@@ -24,7 +24,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
+        Namaste World!
       </h1>
       <a
         target="_blank"
@@ -42,20 +42,26 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       </a>
 
       <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
+        I am Kumar Ashish, living in Bangalore. I have been developing software
+        since 2019, and most of that development has been for companies I was
+        working with at the time. With AI, so much more is possible to do
+        with the same amount of time, and I find myself finally willing to
+        write stuff I am passionate about.
+        <br>
+        <br>
+        So expect to see a lot more of me in open source, I will try to avoid
+        noisy projects as they already will have a lot of smart people
+        contributing.
       </p>
       <p class="mt-2">
-        Read the blog posts or check
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton> for more info.
+        Read the blog posts or check out my socials for more info.
       </p>
+      <div class="mt-4">
+        <LinkButton href="/about/">
+          About me
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
