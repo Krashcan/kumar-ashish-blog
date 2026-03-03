@@ -3,91 +3,44 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
-import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const latestPost = sortedPosts[0];
+const recentPosts = sortedPosts.slice(1);
+
+// Strip markdown syntax to get plain text, then take first 200 chars
+function stripMarkdown(md: string): string {
+  return md
+    .replace(/^#{1,6}\s+.*$/gm, "") // headings
+    .replace(/!\[.*?\]\(.*?\)/g, "") // images
+    .replace(/\[([^\]]*)\]\(.*?\)/g, "$1") // links → text
+    .replace(/[*_~`>]/g, "") // inline formatting
+    .replace(/\n{2,}/g, " ") // collapse newlines
+    .replace(/\n/g, " ")
+    .trim();
+}
+
+const latestExcerpt = latestPost
+  ? stripMarkdown(latestPost.body ?? "").slice(0, 200) + "..."
+  : "";
 ---
 
 <Layout>
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
-    <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Namaste World!
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
-      <p>
-        I am Kumar Ashish, living in Bangalore. I have been developing software
-        since 2019, and most of that development has been for companies I was
-        working with at the time. With AI, so much more is possible to do
-        with the same amount of time, and I find myself finally willing to
-        write stuff I am passionate about.
-        <br>
-        <br>
-        So expect to see a lot more of me in open source, I will try to avoid
-        noisy projects as they already will have a lot of smart people
-        contributing.
-      </p>
-      <p class="mt-2">
-        Read the blog posts or check out my socials for more info.
-      </p>
-      <div class="mt-4">
-        <LinkButton href="/about/">
-          About me
-          <IconArrowRight class="inline-block rtl:-rotate-180" />
-        </LinkButton>
-      </div>
-      {
-        // only display if at least one social link is enabled
-        SOCIALS.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
-    </section>
-
     {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-b border-border": recentPosts.length > 0 },
-          ]}
-        >
-          <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
+      latestPost && (
+        <section id="latest" class:list={["pt-8 pb-6", "border-b border-border"]}>
+          <h2 class="text-2xl font-semibold tracking-wide">Latest Post</h2>
+          <Card variant="h3" {...latestPost} />
+          <p class="mt-2 text-foreground/80">{latestExcerpt}</p>
         </section>
       )
     }
