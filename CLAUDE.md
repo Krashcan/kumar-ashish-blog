@@ -56,6 +56,13 @@ The homepage (`src/pages/index.astro`) has:
 - Featured posts (filtered by `featured: true`)
 - Recent posts (non-featured, limited by `SITE.postPerIndex` which defaults to 4)
 
+## Workflow: uncommitted blog posts
+
+When the user shares a blog post that hasn't been committed yet, automatically:
+1. **Proofread** — apply the proofreading prompt below
+2. **Add frontmatter** — add required (and any relevant optional) frontmatter if missing
+3. **Fix markdown formatting** — ensure headings, links, images, and structure follow post body conventions
+
 ## Proofreading prompt
 
 Use this when asked to proofread a post:
