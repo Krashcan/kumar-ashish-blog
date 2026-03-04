@@ -32,7 +32,6 @@ const thoughts = defineCollection({
       modDatetime: z.date().optional().nullable(),
       draft: z.boolean().optional(),
       tags: z.array(z.string()).default(["others"]),
-      slug: z.string(),
     }),
 });
 

@@ -7,6 +7,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import ThoughtCard from "@/components/ThoughtCard.astro";
 import getSortedThoughts from "@/utils/getSortedThoughts";
+import { getThoughtSlug } from "@/utils/getThoughtSlug";
 import type { CollectionEntry } from "astro:content";
 import { SITE } from "@/config";
 
@@ -14,10 +15,10 @@ export async function getStaticPaths() {
   const thoughts = await getCollection("thoughts");
   const sorted = getSortedThoughts(thoughts);
 
-  // Group thoughts by slug
+  // Group thoughts by folder-derived slug
   const groups = new Map<string, CollectionEntry<"thoughts">[]>();
   for (const thought of sorted) {
-    const slug = thought.data.slug;
+    const slug = getThoughtSlug(thought.id);
     if (!groups.has(slug)) {
       groups.set(slug, []);
     }
