@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import type { InferGetStaticPropsType } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import ThoughtCard from "@/components/ThoughtCard.astro";
+import getSortedThoughts from "@/utils/getSortedThoughts";
+import type { CollectionEntry } from "astro:content";
+import { SITE } from "@/config";
+
+export async function getStaticPaths() {
+  const thoughts = await getCollection("thoughts");
+  const sorted = getSortedThoughts(thoughts);
+
+  // Group thoughts by slug
+  const groups = new Map<string, CollectionEntry<"thoughts">[]>();
+  for (const thought of sorted) {
+    const slug = thought.data.slug;
+    if (!groups.has(slug)) {
+      groups.set(slug, []);
+    }
+    groups.get(slug)!.push(thought);
+  }
+
+  return Array.from(groups.entries()).map(([slug, thoughts]) => ({
+    params: { slug },
+    props: { thoughts },
+  }));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { slug } = Astro.params;
+const { thoughts } = Astro.props as Props;
+---
+
+<Layout title={`Thoughts: ${slug} | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle={`Thoughts: ${slug}`} pageDesc={`All thoughts tagged "${slug}".`}>
+    <ul>
+      {thoughts.map((thought) => (
+        <ThoughtCard {...thought} />
+      ))}
+    </ul>
+  </Main>
+  <Footer />
+</Layout>

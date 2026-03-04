@@ -1,6 +1,10 @@
 # Kumar Ashish Blog
 
-Personal blog built on the AstroPaper Astro theme (v5.x). Posts live in `src/data/blog/`.
+Personal blog built on the AstroPaper Astro theme (v5.x). Posts live in `src/data/blog/`. Thoughts (short micro-posts) live in `src/data/thoughts/`.
+
+## New Features
+- For any new features being requested, we must use red/green tests
+- Its important that readme is associated with the new changes
 
 ## Key files
 
@@ -9,6 +13,7 @@ Personal blog built on the AstroPaper Astro theme (v5.x). Posts live in `src/dat
 - `src/content.config.ts` — content collection schema
 - `src/pages/index.astro` — homepage layout (hero section + featured/recent posts)
 - `src/data/blog/` — blog post markdown files
+- `src/data/thoughts/` — thought markdown files (short micro-posts)
 
 ## Blog post format
 
@@ -49,12 +54,35 @@ timezone: Asia/Kolkata         # override SITE.timezone
 - Images can be in `src/assets/` (optimized) or `public/` (unoptimized)
 - Markdown image syntax: `![alt](@/assets/images/img.png)` or relative paths
 
+## Thoughts format
+
+Thoughts are short, tweet-like posts stored in `src/data/thoughts/`. They have no title or description — just content and tags. Multiple thoughts share a page via the `slug` field (e.g., all thoughts with `slug: march` appear at `/thoughts/march`).
+
+### Required frontmatter
+
+```yaml
+---
+pubDatetime: 2026-03-01T10:00:00Z
+tags:
+  - random
+slug: march
+---
+```
+
+### Optional frontmatter
+
+```yaml
+modDatetime: 2026-03-03T12:00:00Z  # only when thought is modified
+draft: false                        # true → hidden from published site
+```
+
 ## Homepage
 
 The homepage (`src/pages/index.astro`) has:
-- A hero section with heading + intro paragraph
-- Featured posts (filtered by `featured: true`)
-- Recent posts (non-featured, limited by `SITE.postPerIndex` which defaults to 4)
+- A merged chronological feed of posts and thoughts
+- Posts show title + 200-char excerpt via Card
+- Thoughts show full content via ThoughtCard
+- Links to "All Posts" and "All Thoughts"
 
 ## Workflow: uncommitted blog posts
 

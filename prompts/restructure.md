@@ -1,0 +1,2 @@
+I want recent at the top, without any heading, like it should read like a blog with a scroll. and it should have like 
+latest 10 items across thoughts and posts. On the right side there could be list of recent posts specifically   

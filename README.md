@@ -52,8 +52,10 @@ Inside of AstroPaper, you'll see the following folders and files:
 │   │   └── images/
 │   ├── components/
 │   ├── data/
-│   │   └── blog/
-│   │       └── some-blog-posts.md
+│   │   ├── blog/
+│   │   │   └── some-blog-posts.md
+│   │   └── thoughts/
+│   │       └── some-thoughts.md
 │   ├── layouts/
 │   ├── pages/
 │   ├── scripts/
@@ -72,6 +74,32 @@ Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page
 Any static assets, like images, can be placed in the `public/` directory.
 
 All blog posts are stored in `src/data/blog` directory.
+
+All thoughts (short, tweet-like posts) are stored in `src/data/thoughts` directory.
+
+### Thoughts
+
+Thoughts are short posts without titles — just content and tags. They are grouped by a shared `slug` field (e.g., all thoughts with `slug: march` appear on `/thoughts/march`).
+
+**Required frontmatter:**
+
+```yaml
+---
+pubDatetime: 2026-03-01T10:00:00Z
+tags:
+  - random
+slug: march
+---
+```
+
+**Optional frontmatter:**
+
+```yaml
+modDatetime: 2026-03-03T12:00:00Z
+draft: false
+```
+
+The homepage shows both posts and thoughts in chronological order. Tags from thoughts are included in the tags page.
 
 ## 📖 Documentation
 
