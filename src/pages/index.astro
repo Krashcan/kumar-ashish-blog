@@ -8,8 +8,8 @@ import Card from "@/components/Card.astro";
 import ThoughtCard from "@/components/ThoughtCard.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import getSortedThoughts from "@/utils/getSortedThoughts";
+import { getPath } from "@/utils/getPath";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { SITE } from "@/config";
 
 const posts = await getCollection("blog");
 const thoughts = await getCollection("thoughts");
@@ -35,8 +35,8 @@ const feed: FeedItem[] = [
   return dateB - dateA;
 });
 
-const latestItem = feed[0];
-const recentItems = feed.slice(1, SITE.postPerIndex + 1);
+const feedItems = feed.slice(0, 10);
+const sidebarPosts = sortedPosts.slice(0, 5);
 
 // Strip markdown syntax to get plain text, then take first 200 chars
 function stripMarkdown(md: string): string {
@@ -53,53 +53,57 @@ function stripMarkdown(md: string): string {
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index" class="app-layout">
-    {
-      latestItem && latestItem.type === "post" && (
-        <section id="latest" class:list={["pt-8 pb-6", "border-b border-border"]}>
-          <h2 class="text-2xl font-semibold tracking-wide">Latest Post</h2>
-          <Card variant="h3" {...latestItem.item} />
-          <p class="mt-2 text-foreground/80">
-            {stripMarkdown(latestItem.item.body ?? "").slice(0, 200) + "..."}
-          </p>
-        </section>
-      )
-    }
-    {
-      latestItem && latestItem.type === "thought" && (
-        <section id="latest" class:list={["pt-8 pb-6", "border-b border-border"]}>
-          <h2 class="text-2xl font-semibold tracking-wide">Latest Thought</h2>
-          <ThoughtCard {...latestItem.item} />
-        </section>
-      )
-    }
-
-    {
-      recentItems.length > 0 && (
-        <section id="recent" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent</h2>
-          <ul>
-            {recentItems.map(({ type, item }) =>
+  <main id="main-content" data-layout="index">
+    <div class="mx-auto max-w-5xl px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_250px] gap-8">
+        <!-- Main feed -->
+        <div>
+          <ul class="pt-8">
+            {feedItems.map(({ type, item }) =>
               type === "post" ? (
-                <Card variant="h3" {...item} />
+                <li class="border-b border-border pb-4 mb-4">
+                  <Card variant="h3" {...item} />
+                  <p class="mt-2 text-foreground/80">
+                    {stripMarkdown(item.body ?? "").slice(0, 200) + "..."}
+                  </p>
+                </li>
               ) : (
-                <ThoughtCard {...item} />
+                <li class="border-b border-border pb-4 mb-4">
+                  <ThoughtCard {...item} />
+                </li>
               )
             )}
           </ul>
-        </section>
-      )
-    }
 
-    <div class="my-8 flex justify-center gap-4">
-      <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-      <LinkButton href="/thoughts/">
-        All Thoughts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
+          <div class="my-8 flex justify-center gap-4">
+            <LinkButton href="/posts/">
+              All Posts
+              <IconArrowRight class="inline-block rtl:-rotate-180" />
+            </LinkButton>
+            <LinkButton href="/thoughts/">
+              All Thoughts
+              <IconArrowRight class="inline-block rtl:-rotate-180" />
+            </LinkButton>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="lg:sticky lg:top-20 lg:self-start pt-8">
+          <h2 class="text-lg font-semibold mb-4">Recent Posts</h2>
+          <ul class="space-y-2">
+            {sidebarPosts.map(post => (
+              <li>
+                <a
+                  href={getPath(post.id, post.filePath)}
+                  class="text-sm text-foreground/80 hover:text-accent transition-colors"
+                >
+                  {post.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
     </div>
   </main>
   <Footer />
