@@ -9,13 +9,14 @@ import getUniqueTags from "@/utils/getUniqueTags";
 import { SITE } from "@/config";
 
 const posts = await getCollection("blog");
+const thoughts = await getCollection("thoughts");
 
-let tags = getUniqueTags(posts);
+let tags = getUniqueTags(posts, thoughts);
 ---
 
 <Layout title={`Tags | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Tags" pageDesc="All the tags used in posts.">
+  <Main pageTitle="Tags" pageDesc="All the tags used in posts and thoughts.">
     <ul class="flex flex-wrap gap-6">
       {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} />)}
     </ul>
