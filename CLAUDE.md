@@ -56,7 +56,7 @@ timezone: Asia/Kolkata         # override SITE.timezone
 
 ## Thoughts format
 
-Thoughts are short, tweet-like posts stored in `src/data/thoughts/`. They have no title or description — just content and tags. Multiple thoughts share a page via the `slug` field (e.g., all thoughts with `slug: march` appear at `/thoughts/march`).
+Thoughts are short, tweet-like posts stored in `src/data/thoughts/`. They have no title or description — just content and tags. Multiple thoughts are grouped by **folder name** — the subfolder becomes the slug (e.g., all thoughts in `src/data/thoughts/march/` appear at `/thoughts/march`).
 
 ### Required frontmatter
 
@@ -65,8 +65,20 @@ Thoughts are short, tweet-like posts stored in `src/data/thoughts/`. They have n
 pubDatetime: 2026-03-01T10:00:00Z
 tags:
   - random
-slug: march
 ---
+```
+
+### Folder structure
+
+Thoughts must be placed in a subfolder. The folder name becomes the slug used for grouping and routing:
+
+```
+src/data/thoughts/
+  march/
+    first-thought.md    → /thoughts/march
+    second-thought.md   → /thoughts/march
+  april/
+    some-thought.md     → /thoughts/april
 ```
 
 ### Optional frontmatter
@@ -78,11 +90,13 @@ draft: false                        # true → hidden from published site
 
 ## Homepage
 
-The homepage (`src/pages/index.astro`) has:
-- A merged chronological feed of posts and thoughts
-- Posts show title + 200-char excerpt via Card
-- Thoughts show full content via ThoughtCard
-- Links to "All Posts" and "All Thoughts"
+The homepage (`src/pages/index.astro`) has a two-column layout:
+- **Left (main feed)**: Latest 10 items (posts + thoughts mixed chronologically) — no section headings
+  - Posts show title + 200-char excerpt via Card
+  - Thoughts show full content via ThoughtCard
+  - "All Posts" and "All Thoughts" links at the bottom
+- **Right (sidebar)**: "Recent Posts" heading + latest 5 post titles as links (sticky on desktop)
+- On mobile: sidebar stacks below the feed
 
 ## Workflow: uncommitted blog posts
 

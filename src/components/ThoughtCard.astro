@@ -1,11 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Datetime from "./Datetime.astro";
+import { getThoughtSlug } from "@/utils/getThoughtSlug";
 
 type Props = CollectionEntry<"thoughts">;
 
-const { data, body } = Astro.props;
-const { slug, ...datetimeProps } = data;
+const { id, data, body } = Astro.props;
+const { ...datetimeProps } = data;
+const slug = getThoughtSlug(id);
 
 // Strip markdown syntax to get plain text
 function stripMarkdown(md: string): string {
