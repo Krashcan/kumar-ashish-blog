@@ -172,6 +172,23 @@ PUBLIC_GOOGLE_SITE_VERIFICATION=your-google-site-verification-value
 
 > See [this discussion](https://github.com/satnaing/astro-paper/discussions/334#discussioncomment-10139247) for adding AstroPaper to the Google Search Console.
 
+## Analytics
+
+The site uses [Vercel Web Analytics](https://vercel.com/docs/analytics) and [Speed Insights](https://vercel.com/docs/speed-insights) for privacy-friendly, cookieless tracking.
+
+**What's tracked:**
+
+- **Page views & visitors** — automatic via Vercel Web Analytics (works on Hobby plan)
+- **Core Web Vitals** — automatic via Vercel Speed Insights (LCP, FID, CLS, etc.)
+- **Time-on-page** — custom event tracking via `track()`, bucketed into duration ranges (`<10s`, `10-30s`, `30-60s`, `1-3m`, `3-5m`, `5-10m`, `>10m`)
+
+**Setup:**
+
+1. Enable **Web Analytics** in your Vercel project dashboard under Analytics tab
+2. Enable **Speed Insights** in the same dashboard
+
+**Note:** Custom events (time-on-page tracking) require the **Vercel Pro plan** ($20/month). On the Hobby (free) plan, `track()` calls silently no-op — standard page views, visitors, and referrers still work fine.
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:

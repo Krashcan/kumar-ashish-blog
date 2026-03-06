@@ -3,6 +3,8 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import "@/styles/global.css";
 
 type Props = {
@@ -135,6 +137,9 @@ const structuredData = {
       )
     }
 
+    <Analytics />
+    <SpeedInsights />
+
     <ClientRouter />
 
     <!-- Minimal inline script to prevent FOUC - sets theme immediately -->
@@ -172,5 +177,8 @@ const structuredData = {
 
     <!-- Load full theme logic -->
     <script src="../scripts/theme.ts"></script>
+
+    <!-- Time-on-page tracking -->
+    <script src="../scripts/time-on-page.ts"></script>
   </body>
 </html>
